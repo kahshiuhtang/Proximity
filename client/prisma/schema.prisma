@@ -90,4 +90,4 @@ model Channel{
   updatedAt DateTime @updatedAt
 }
 // npx prisma generate
-//npx prisma db push
+// npx prisma db push
