@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -29,6 +31,7 @@ const formSchema = z.object({
 });
 export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -42,7 +45,14 @@ export const InitialModal = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.post("/api/servers", values);
+      form.reset();
+      router.refresh();
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
   };
   if (!isMounted) {
     return null;
