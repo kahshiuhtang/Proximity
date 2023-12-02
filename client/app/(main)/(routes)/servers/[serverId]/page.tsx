@@ -1,4 +1,4 @@
 const ServerIdPage = () => {
-  return <div></div>;
+  return <div>Server Page</div>;
 };
 export default ServerIdPage;
