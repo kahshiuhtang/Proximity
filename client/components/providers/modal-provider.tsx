@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CreateServerModal } from "@/components/modals/create-server-modal";
 // Modal: have to careful if you are rendering on server or not
+// Don't want inconsistencies -> leads to hydration errors.
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
