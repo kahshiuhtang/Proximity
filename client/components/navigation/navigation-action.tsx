@@ -1,7 +1,7 @@
 "use client";
 import { Plus } from "lucide-react";
 import { ActionTooltip } from "@/components/action-tooltip";
-import { useModal } from "@/hooks/user-model-store";
+import { useModal } from "@/hooks/use-model-store";
 export const NavigationAction = () => {
   const { onOpen } = useModal();
   return (
