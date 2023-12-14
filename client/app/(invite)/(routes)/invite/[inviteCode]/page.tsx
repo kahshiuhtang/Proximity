@@ -1,22 +1,26 @@
-import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs";
+import { RedirectToSignIn, redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
+import { currentProfile } from "@/lib/current-profile";
 
 interface InviteCodePageProps {
   params: {
     inviteCode: string;
   };
 }
-// May change the ID link too quick
+
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   const profile = await currentProfile();
+
   if (!profile) {
-    return redirectToSignIn();
+    return <RedirectToSignIn />;
   }
+
   if (!params.inviteCode) {
     return redirect("/");
   }
+
   const existingServer = await db.server.findFirst({
     where: {
       inviteCode: params.inviteCode,
@@ -27,10 +31,11 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
       },
     },
   });
+
   if (existingServer) {
     return redirect(`/servers/${existingServer.id}`);
   }
-  // Create new member profile in this server
+
   const server = await db.server.update({
     where: {
       inviteCode: params.inviteCode,
@@ -45,6 +50,12 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
       },
     },
   });
-  return <div></div>;
+
+  if (server) {
+    return redirect(`/servers/${server.id}`);
+  }
+
+  return null;
 };
+
 export default InviteCodePage;
