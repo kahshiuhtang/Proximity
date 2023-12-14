@@ -8,6 +8,7 @@ interface InviteCodePageProps {
     inviteCode: string;
   };
 }
+// May change the ID link too quick
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   const profile = await currentProfile();
   if (!profile) {
@@ -29,7 +30,7 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   if (existingServer) {
     return redirect(`/servers/${existingServer.id}`);
   }
-
+  // Create new member profile in this server
   const server = await db.server.update({
     where: {
       inviteCode: params.inviteCode,
@@ -44,6 +45,6 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
       },
     },
   });
-  return <div>Hello Invite</div>;
+  return <div></div>;
 };
 export default InviteCodePage;
