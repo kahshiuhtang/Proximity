@@ -6,6 +6,7 @@ import { InviteModal } from "@/components/modals/invite-modal";
 import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { MembersModal } from "@/components/modals/members-modal";
 import { CreateChannelModal } from "@/components/modals/create-channel-modal";
+import { LeaveServerModal } from "../modals/leave-server-modal";
 // Modal: have to careful if you are rendering on server or not
 // Don't want inconsistencies -> leads to hydration errors.
 export const ModalProvider = () => {
@@ -23,6 +24,7 @@ export const ModalProvider = () => {
       <EditServerModal />
       <MembersModal />
       <CreateChannelModal />
+      <LeaveServerModal />
     </>
   );
 };
