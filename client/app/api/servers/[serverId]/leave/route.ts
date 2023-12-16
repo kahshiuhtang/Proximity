@@ -14,6 +14,27 @@ export async function PATCH(
     if (!params.serverId) {
       return new NextResponse("Server ID missing", { status: 400 });
     }
+    const server = await db.server.update({
+      where: {
+        id: params.serverId,
+        profileId: {
+          not: profile.id,
+        },
+        members: {
+          some: {
+            profileId: profile.id,
+          },
+        },
+      },
+      data: {
+        members: {
+          deleteMany: {
+            profileId: profile.id,
+          },
+        },
+      },
+    });
+    return NextResponse.json(server);
   } catch (err) {
     console.log("[SERVER_ID_LEAVE]", err);
     return new NextResponse("Internal Error", { status: 500 });
