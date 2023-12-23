@@ -13,12 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const DeleteChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
 
   const isModalOpen = isOpen && type === "deleteChannel";
   const { server, channel } = data;
@@ -29,12 +28,12 @@ export const DeleteChannelModal = () => {
       setIsLoading(true);
       const url = qs.stringify({
         url: `/api/channels/${channel?.id}`,
-        query: { serverId: params?.serverId },
+        query: { serverId: server?.id },
       });
       await axios.delete(url);
       onClose();
       router.refresh();
-      router.push(`/servers/${params?.serverId}`);
+      router.push(`/servers/${server?.id}`);
     } catch (err) {
       console.log(err);
     } finally {
