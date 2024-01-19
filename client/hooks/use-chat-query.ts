@@ -40,6 +40,7 @@ export const useChatQuery = ({
       queryFn: fetchMessages,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
       refetchInterval: isConnected ? false : 1000,
+      initialPageParam: undefined,
     });
   // only when websocket down do we do polling
   return {
