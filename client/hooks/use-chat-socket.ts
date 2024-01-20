@@ -13,7 +13,7 @@ type MessageWithMemberWithProfile = Message & {
     profile: Profile;
   };
 };
-export const useCHatSocket = ({
+export const useChatSocket = ({
   addKey,
   updateKey,
   queryKey,
