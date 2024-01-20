@@ -104,7 +104,7 @@ export default async function handler(
           id: messageId as string,
         },
         data: {
-          content: "This message has been deleted",
+          content,
         },
         include: {
           member: {
